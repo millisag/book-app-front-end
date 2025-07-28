@@ -7,6 +7,9 @@ import { Book } from '../models/book';
   providedIn: 'root'
 })
 export class BookService {
+  createBook(newBook: { title: string; author: string; read: boolean; }): Observable<any> {
+    throw new Error('Method not implemented.');
+  }
   private apiUrl = 'http://localhost:3000/books';
 
   constructor(private http: HttpClient) {}

@@ -1,0 +1,19 @@
+<h2>Add New Book</h2>
+<form (ngSubmit)="onSubmit()">
+  <label for="title">Title:</label>
+  <input id="title" name="title" [(ngModel)]="title" required />
+
+  <label for="author">Author:</label>
+  <input id="author" name="author" [(ngModel)]="author" required />
+
+  <label>
+    <input type="checkbox" [(ngModel)]="read" name="read" />
+    Read
+  </label>
+
+  <button type="submit">Create Book</button>
+
+  @if (errorMessage) {
+    <div class="error">{{ errorMessage }}</div>
+  }
+</form>
