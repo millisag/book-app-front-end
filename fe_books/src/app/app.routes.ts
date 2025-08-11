@@ -4,7 +4,6 @@ import { AuthGuard } from './auth.guard';
 import { NoAuthGuard } from './no-auth.guard';
 import { SignupComponent } from './signup/signup.component';
 
-
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     
@@ -13,8 +12,6 @@ export const routes: Routes = [
     { path: 'login',
         loadComponent: () => import('./components/login/login.component').then((c) => c.LoginComponent),
         canActivate: [NoAuthGuard] },
-    
-    { path: '**', redirectTo: 'login' },
 
     { path: 'books/new',
         loadComponent: () =>
@@ -22,12 +19,8 @@ export const routes: Routes = [
             (c) => c.BookNewComponent
           ),
         canActivate: [AuthGuard] },
-];
 
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule {}
+    { path: '**', redirectTo: 'login' },
+];
 
 

@@ -1,23 +1,13 @@
-import { HttpInterceptorFn, provideHttpClient, withInterceptors } from '@angular/common/http';
-import { ApplicationConfig, inject } from '@angular/core';
-import { AuthenticationService } from './services/authentication.service';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { ApplicationConfig, provideZoneChangeDetection} from '@angular/core';
+
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
-
-export const authTokenInterceptor: HttpInterceptorFn = (req, next) => {
-  const authService = inject(AuthenticationService);
-  const authToken = authService.getToken();
-
-  const authReq = authToken
-    ? req.clone({
-        headers: req.headers.set('Authorization', `Bearer ${authToken}`),
-      })
-    : req;
-  return next(authReq);
-};
+import { authTokenInterceptor } from './auth-token.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(withInterceptors([authTokenInterceptor]))
   ]
